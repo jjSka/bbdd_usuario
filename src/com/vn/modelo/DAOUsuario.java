@@ -74,7 +74,7 @@ public class DAOUsuario implements IDAOUsuario {
     @Override
     public Usuario leerUno(String email) {
         for (Usuario usuario : listaUsuarios) {
-            if (usuario.getEmail() == email) {
+            if (usuario.getEmail().equals(email)) {
                 return usuario;
             }
         }
@@ -83,7 +83,7 @@ public class DAOUsuario implements IDAOUsuario {
 
     @Override
     public List<Usuario> leerTodos(String nombre) {
-        List<Usuario> listaNombreUsuarios = new ArrayList<Usuario>();
+        List<Usuario> listaNombreUsuarios = new ArrayList<>();
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getName().equals(nombre)) {
                 listaNombreUsuarios.add(usuario);
