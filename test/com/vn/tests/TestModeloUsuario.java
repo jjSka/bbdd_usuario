@@ -24,7 +24,7 @@ public class TestModeloUsuario {
     
     @Test
     public void crearUsuariosInvalidos() {
-        
+        assertEquals();
     }
     @Test
     public void crearUsuariosValidos() {

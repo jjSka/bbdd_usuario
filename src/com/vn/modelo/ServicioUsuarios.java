@@ -5,22 +5,27 @@
  */
 package com.vn.modelo;
 
+import jdk.nashorn.internal.runtime.regexp.RegExp;
+
 /**
  *
  * @author PC
  */
-public class ServicioUsuarios{
+public class ServicioUsuarios {
 
-    public boolean validarDatos(){
-        return true;
+    public boolean validarEmail(String email) {
+        String re= "^(.+)@(.+)$";
+        return email.matches(re);
     }
-    
-    //public Usuario crear(String email. string password, string nombre, int edad
-    //public modificar(int id, string email. string pwd, string nombre, int edad)
-    //boolean public eliminar(string id)
-    //Usuario leer uno(int id)
-    //Usuario leeruno(string email)
-    // List<Usuario>leerPornombre(string nombre) si nombre vacio devuelve todos
-    // list<usuario> leer todos()
+
+    public boolean validarPassWord(String pwd) {
+        String re= "^[a-zA-Z][ ]*$";
+        return re.matches(re);
+    }
+
+    public boolean validarNombre(String name) {
+        String re= "^[a-zA-Z][ ]*$";
+        return re.matches(name);
+    }
     // validarDatos(....){}
 }
