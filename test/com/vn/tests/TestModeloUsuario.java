@@ -19,17 +19,17 @@ public class TestModeloUsuario {
 
     public void crearParaTest(){
         DAOUsuario du= new DAOUsuario();
-        du.crear(new Usuario(100,"email@email.com","password","Felix",23));
+        du.crear(new Usuario("email@email.com","password","Felix",23));
     }
     
     @Test
     public void crearUsuariosInvalidos() {
-        assertEquals();
+        DAOUsuario dao = new DAOUsuario();
+        dao.crear(new Usuario("aaa", "-", "999", 0));
     }
     @Test
     public void crearUsuariosValidos() {
-        Usuario u= new Usuario();
-        assertEquals();
+        
         
     }
     @Test
