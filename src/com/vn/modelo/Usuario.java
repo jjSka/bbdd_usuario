@@ -16,8 +16,7 @@ public class Usuario {
     private String name;
     private int age;
 
-    public Usuario(int id, String email, String password, String name, int age) {
-        this.id = id;
+    public Usuario(String email, String password, String name, int age) {
         this.email = email;
         this.password = password;
         this.name = name;
