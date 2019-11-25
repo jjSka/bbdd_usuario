@@ -18,17 +18,18 @@ import java.util.logging.Logger;
  */
 public class SQLConnection {
     //jdbc:derby://localhost:1527/db_users
-    public Connection openConnection(String urlDB, String user, String pass){
-        Connection con=null;
+    
+    public Connection openConnection(String urlDB, String user, String pass) {
+        Connection con = null;
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
-            con = DriverManager.getConnection(urlDB, user, pass);
+            con = DriverManager.getConnection(urlDB, user, pass);          
         } catch (Exception ex) {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("Error creating connection");
         }
-         return con;
+        return con;
     }
     public void closeConnection(Connection con){
         try {

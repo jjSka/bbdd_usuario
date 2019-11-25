@@ -8,6 +8,7 @@ package com.vn.modelo;
 import com.vn.modelo.Usuario;
 import com.vn.modelo.interfaces.IDAOUsuario;
 import com.vn.modelo.sql.SQLConnection;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +19,11 @@ import java.util.List;
 public class DAOUsuario implements IDAOUsuario{
     
     private List<Usuario> listaUsuarios;
-    private SQLConnection conn;
+    private Connection conn;
     
     public DAOUsuario() {
         listaUsuarios = new ArrayList<>();
-        conn.openConnection("jdbc:derby://localhost:1527/db_users", "root", "1234");
+        conn = new SQLConnection().openConnection("jdbc:derby://localhost:1527/db_users", "root", "1234");
     }
     
     @Override
@@ -36,7 +37,14 @@ public class DAOUsuario implements IDAOUsuario{
     }
     @Override
     public boolean eliminar(int id){
-        return true;
+        boolean flag = false;
+        for(Usuario usuario : listaUsuarios){
+            if(id==usuario.getId()){
+                flag=true;
+                listaUsuarios.remove(usuario);
+            }
+        }
+        return flag;
     }
     @Override
     public Usuario leerUno(int id){
@@ -44,10 +52,15 @@ public class DAOUsuario implements IDAOUsuario{
     }
     @Override
     public Usuario leerUno(String email){
+        for(Usuario usuario : listaUsuarios){
+           if(usuario.getEmail()==email)
+               return usuario;
+       }
         return null;
     }
     @Override
     public List<Usuario> leerTodos(String nombre){
+        
         return listaUsuarios;
     }
     @Override
