@@ -16,27 +16,37 @@ import java.util.List;
  *
  * @author PC
  */
-public class DAOUsuario implements IDAOUsuario{
-    
+public class DAOUsuario implements IDAOUsuario {
+
     private List<Usuario> listaUsuarios;
     private Connection conn;
     
+
     public DAOUsuario() {
         listaUsuarios = new ArrayList<>();
         conn = new SQLConnection().openConnection("jdbc:derby://localhost:1527/db_users", "root", "1234");
     }
-    
+
     @Override
-    public Usuario crear(Usuario nuevoUsuario){
+    public Usuario crear(Usuario nuevoUsuario) {
         listaUsuarios.add(nuevoUsuario);
         return null;
     }
+
     @Override
-    public void modificar(int id, String email, String pwd, String nombre, int edad){
-        
+    public void modificar(int id, String email, String pwd, String nombre, int edad) {
+        for (Usuario usuario : listaUsuarios) {
+            if (usuario.getId() == id) {
+                usuario.setEmail(email);
+                usuario.setPassword(pwd);
+                usuario.setName(nombre);
+                usuario.setAge(edad);
+            }
+        }
     }
+
     @Override
-    public boolean eliminar(int id){
+    public boolean eliminar(int id) {
         boolean flag = false;
         for(Usuario usuario : listaUsuarios){
             if(id==usuario.getId()){
@@ -46,26 +56,39 @@ public class DAOUsuario implements IDAOUsuario{
         }
         return flag;
     }
+
     @Override
-    public Usuario leerUno(int id){
+    public Usuario leerUno(int id) {
+        for (Usuario usuario : listaUsuarios) {
+            if(usuario.getId()==id)
+                return usuario;
+        }
         return null;
     }
+
     @Override
-    public Usuario leerUno(String email){
+    public Usuario leerUno(String email) {
         for(Usuario usuario : listaUsuarios){
            if(usuario.getEmail()==email)
                return usuario;
        }
         return null;
     }
+
     @Override
-    public List<Usuario> leerTodos(String nombre){
-        
+    public List<Usuario> leerTodos(String nombre) {
+        List<Usuario> listaNombreUsuarios= new ArrayList<Usuario>();
+        for (Usuario usuario : listaUsuarios) {
+            if(usuario.getName().equals(nombre)){
+                listaNombreUsuarios.add(usuario);
+            }
+        }
+        return listaNombreUsuarios;
+    }
+
+    @Override
+    public List<Usuario> leerTodos() {
         return listaUsuarios;
     }
-    @Override
-    public List<Usuario> leerTodos(){
-        return listaUsuarios;
-    }
-    
+
 }
