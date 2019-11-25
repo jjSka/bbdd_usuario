@@ -7,6 +7,7 @@ package com.vn.modelo;
 
 import com.vn.modelo.Usuario;
 import com.vn.modelo.interfaces.IDAOUsuario;
+import com.vn.modelo.sql.SQLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,12 @@ import java.util.List;
 public class DAOUsuario implements IDAOUsuario {
 
     private List<Usuario> listaUsuarios;
+    private SQLConnection conn;
+    
 
     public DAOUsuario() {
         listaUsuarios = new ArrayList<>();
+        conn.openConnection("jdbc:derby://localhost:1527/db_users", "root", "1234");
     }
 
     @Override
