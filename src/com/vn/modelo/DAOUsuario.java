@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class DAOUsuario implements IDAOUsuario {
 
-    public static final String urldb = "jdbc:derby://localhost:1527/db_users", user = "root", pwd = "1234";
+    public static final String urldb = "jdbc:derby://localhost:1527/bd_usuarios", user = "root", pwd = "1234";
     private Connection conn;
 
     public DAOUsuario() {

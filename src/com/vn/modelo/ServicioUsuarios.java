@@ -27,4 +27,9 @@ public class ServicioUsuarios {
         String re = "^[a-zA-Z][ ]*$";
         return true;
     }
+    
+    public boolean validar(Usuario usuario){
+        return(validarEmail(usuario.getEmail())&&validarPassWord(usuario.getPassword())&&validarNombre(usuario.getName()));
+    }
+    // validarDatos(....){}
 }

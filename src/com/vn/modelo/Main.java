@@ -16,6 +16,9 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        DAOUsuario du= new DAOUsuario();
+        du.crear(new Usuario("a@a.com","1234","Jose",23));
     }
     
 }
