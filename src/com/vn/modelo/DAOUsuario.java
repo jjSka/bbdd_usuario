@@ -32,7 +32,7 @@ public class DAOUsuario implements IDAOUsuario{
     }
     @Override
     public void modificar(int id, String email, String pwd, String nombre, int edad){
-        ;
+        
     }
     @Override
     public boolean eliminar(int id){
