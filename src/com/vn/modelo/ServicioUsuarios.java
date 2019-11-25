@@ -9,7 +9,7 @@ package com.vn.modelo;
  *
  * @author PC
  */
-public class ServicioUsuarios {
+public class ServicioUsuarios{
     //public Usuario crear(String email. string password, string nombre, int edad
     //public modificar(int id, string email. string pwd, string nombre, int edad)
     //boolean public eliminar(string id)
