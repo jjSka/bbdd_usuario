@@ -20,7 +20,6 @@ public class DAOUsuario implements IDAOUsuario {
 
     private List<Usuario> listaUsuarios;
     private Connection conn;
-    
 
     public DAOUsuario() {
         listaUsuarios = new ArrayList<>();
@@ -29,8 +28,13 @@ public class DAOUsuario implements IDAOUsuario {
 
     @Override
     public Usuario crear(Usuario nuevoUsuario) {
+        for (Usuario usuario : listaUsuarios) {
+            if (usuario.equals(nuevoUsuario)) {
+                return usuario;
+            }
+        }
         listaUsuarios.add(nuevoUsuario);
-        return null;
+        return nuevoUsuario;
     }
 
     @Override
@@ -48,9 +52,9 @@ public class DAOUsuario implements IDAOUsuario {
     @Override
     public boolean eliminar(int id) {
         boolean flag = false;
-        for(Usuario usuario : listaUsuarios){
-            if(id==usuario.getId()){
-                flag=true;
+        for (Usuario usuario : listaUsuarios) {
+            if (id == usuario.getId()) {
+                flag = true;
                 listaUsuarios.remove(usuario);
             }
         }
@@ -60,26 +64,28 @@ public class DAOUsuario implements IDAOUsuario {
     @Override
     public Usuario leerUno(int id) {
         for (Usuario usuario : listaUsuarios) {
-            if(usuario.getId()==id)
+            if (usuario.getId() == id) {
                 return usuario;
+            }
         }
         return null;
     }
 
     @Override
     public Usuario leerUno(String email) {
-        for(Usuario usuario : listaUsuarios){
-           if(usuario.getEmail()==email)
-               return usuario;
-       }
+        for (Usuario usuario : listaUsuarios) {
+            if (usuario.getEmail() == email) {
+                return usuario;
+            }
+        }
         return null;
     }
 
     @Override
     public List<Usuario> leerTodos(String nombre) {
-        List<Usuario> listaNombreUsuarios= new ArrayList<Usuario>();
+        List<Usuario> listaNombreUsuarios = new ArrayList<Usuario>();
         for (Usuario usuario : listaUsuarios) {
-            if(usuario.getName().equals(nombre)){
+            if (usuario.getName().equals(nombre)) {
                 listaNombreUsuarios.add(usuario);
             }
         }
