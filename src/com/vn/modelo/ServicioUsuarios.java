@@ -11,6 +11,9 @@ package com.vn.modelo;
  */
 public class ServicioUsuarios{
 
+    public boolean validarDatos(){
+        return true;
+    }
     
     //public Usuario crear(String email. string password, string nombre, int edad
     //public modificar(int id, string email. string pwd, string nombre, int edad)
