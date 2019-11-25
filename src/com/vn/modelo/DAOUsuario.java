@@ -24,8 +24,6 @@ import java.util.logging.Logger;
  * @author PC
  */
 public class DAOUsuario implements IDAOUsuario {
-
-    public static final String urldb = "jdbc:derby://localhost:1527/bd_usuarios", user = "root", pwd = "1234";
     private Connection conn;
 
     public DAOUsuario() {
@@ -44,19 +42,19 @@ public class DAOUsuario implements IDAOUsuario {
         flag = su.validarPassWord(password) ? flag : false;
 
         if (flag) {
-            if (!leerUno(email).equals(null)) {
+            if (leerUno(email)!=null) {
                 return leerUno(nuevoUsuario.getEmail());
             }
-            String sqlQuery = "INSERT INTO USUARIO (EMAIL, PASSWORD, NOMBRE, AGE) VALUES ( ? , ? , ? , ? ) ";
+            String sqlQuery = "INSERT INTO USUARIO (EMAIL, PASSWORD, NOMBRE, EDAD) VALUES ( ? , ? , ? , ? ) ";
             String sqlIns = "SELECT ID FROM USUARIO WHERE EMAIL = ? ";
             try {
-                conn = new SQLConnection().openConnection(urldb, user, pwd);
+                conn = new SQLConnection().openConnection();
                 PreparedStatement sentenciaSQL = conn.prepareStatement(sqlQuery);
                 sentenciaSQL.setString(1, nuevoUsuario.getEmail());
                 sentenciaSQL.setString(2, nuevoUsuario.getPassword());
                 sentenciaSQL.setString(3, nuevoUsuario.getName());
-                sentenciaSQL.setInt(4, nuevoUsuario.getAge());
-                sentenciaSQL.executeQuery();
+                sentenciaSQL.setInt(4, nuevoUsuario.getEdad());
+                sentenciaSQL.executeUpdate();
                 PreparedStatement sentenciaSQL2 = conn.prepareStatement(sqlIns);
                 sentenciaSQL2.setString(1, nuevoUsuario.getEmail());
                 ResultSet rs = sentenciaSQL2.executeQuery();
@@ -87,16 +85,16 @@ public class DAOUsuario implements IDAOUsuario {
         flag = su.validarNombre(nombre) ? flag : false;
         flag = su.validarPassWord(pwd) ? flag : false;
         if (flag) {
-            String sqlQuery = "UPDATE USUARIO SET EMAIL = ? , PASSWORD = ? , NOMBRE = ? , AGE = ? WHERE ID = ? ";
+            String sqlQuery = "UPDATE USUARIO SET EMAIL = ? , PASSWORD = ? , NOMBRE = ? , EDAD = ? WHERE ID = ? ";
             try {
-                conn = new SQLConnection().openConnection(urldb, user, pwd);
+                conn = new SQLConnection().openConnection();
                 PreparedStatement sentenciaSQL = conn.prepareStatement(sqlQuery);
                 sentenciaSQL.setString(1, email);
                 sentenciaSQL.setString(2, pwd);
                 sentenciaSQL.setString(3, nombre);
                 sentenciaSQL.setInt(4, edad);
                 sentenciaSQL.setInt(5, id);
-                sentenciaSQL.executeQuery();
+                sentenciaSQL.executeUpdate();
                 conn.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,10 +110,10 @@ public class DAOUsuario implements IDAOUsuario {
         String sqlQuery = "DELETE FROM USUARIO WHERE ID= ? ";
         boolean flag = true;
         try {
-            conn = new SQLConnection().openConnection(urldb, user, pwd);
+            conn = new SQLConnection().openConnection();
             PreparedStatement sentenciaSQL = conn.prepareStatement(sqlQuery);
             sentenciaSQL.setInt(1, id);
-            sentenciaSQL.executeQuery();
+            sentenciaSQL.executeUpdate();
             conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,14 +162,14 @@ public class DAOUsuario implements IDAOUsuario {
         List<Usuario> list = new ArrayList<>();
         String sql = "SELECT * FROM USUARIO";
         try {
-            conn = new SQLConnection().openConnection(urldb, user, pwd);
+            conn = new SQLConnection().openConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             int id, age;
             String nombre, password, email;
             while (rs.next()) {
                 id = rs.getInt("ID");
-                age = rs.getInt("AGE");
+                age = rs.getInt("EDAD");
                 nombre = rs.getString("NOMBRE");
                 password = rs.getString("PASSWORD");
                 email = rs.getString("EMAIL");

@@ -14,13 +14,13 @@ public class Usuario {
     private String email;
     private String password;
     private String name;
-    private int age;
+    private int edad;
 
-    public Usuario(String email, String password, String name, int age) {
+    public Usuario(String email, String password, String name, int edad) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.age = age;
+        this.edad = edad;
     }
 
     public int getId() {
@@ -55,12 +55,12 @@ public class Usuario {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public int getEdad() {
+        return edad;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
     
 }
