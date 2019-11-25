@@ -7,6 +7,8 @@ package com.vn.tests;
 
 import com.vn.modelo.DAOUsuario;
 import com.vn.modelo.Usuario;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -15,21 +17,26 @@ import static org.junit.Assert.*;
  * @author PC
  */
 public class TestModeloUsuario {
-    
 
     public void crearParaTest(){
-        DAOUsuario du= new DAOUsuario();
-        du.crear(new Usuario("email@email.com","password","Felix",23));
+       
+        
+        
     }
     
     @Test
     public void crearUsuariosInvalidos() {
-        DAOUsuario dao = new DAOUsuario();
-        dao.crear(new Usuario("aaa", "-", "999", 0));
+        DAOUsuario du= new DAOUsuario();
+        List<Usuario> ls = new ArrayList<>();
+        ls=du.leerTodos();
+        for(Usuario u : ls){
+            System.out.println(u.getName()+" "+u.getEmail()+" "+u.getPassword()+" "+u.getEdad());
+        }
     }
     @Test
     public void crearUsuariosValidos() {
-        
+ //       DAOUsuario du= new DAOUsuario();
+//        assertNotNull(du.crear(new Usuario("email@email.com","password","Felix",23)));
         
     }
     @Test
