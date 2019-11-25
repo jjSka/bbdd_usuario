@@ -8,6 +8,8 @@
             <file>file:/C:/Users/PC/Desktop/06_bbdd_usuario/src/com/vn/modelo/Main.java</file>
             <file>file:/C:/Users/PC/Desktop/06_bbdd_usuario/src/com/vn/modelo/ServicioUsuarios.java</file>
             <file>file:/C:/Users/PC/Desktop/06_bbdd_usuario/src/com/vn/modelo/Usuario.java</file>
+            <file>file:/C:/Users/PC/Desktop/06_bbdd_usuario/src/com/vn/modelo/sql/SQLConnection.java</file>
+            <file>file:/C:/Users/PC/Desktop/06_bbdd_usuario/test/com/vn/tests/TestModeloUsuario.java</file>
         </group>
     </open-files>
 </project-private>
