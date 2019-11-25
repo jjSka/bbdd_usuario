@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,11 +26,9 @@ import java.util.logging.Logger;
 public class DAOUsuario implements IDAOUsuario {
 
     public static final String urldb = "jdbc:derby://localhost:1527/db_users", user = "root", pwd = "1234";
-    private List<Usuario> listaUsuarios;
     private Connection conn;
 
     public DAOUsuario() {
-        listaUsuarios = new ArrayList<>();
     }
 
     @Override
@@ -37,8 +37,6 @@ public class DAOUsuario implements IDAOUsuario {
         if (!leerUno(email).equals(null)) {
             return leerUno(nuevoUsuario.getEmail());
         }
-
-        listaUsuarios.add(nuevoUsuario);
         String sqlQuery = "INSERT INTO USUARIO (EMAIL, PASSWORD, NOMBRE, AGE) VALUES ( ? , ? , ? , ? ) ";
         String sqlIns = "SELECT ID FROM USUARIO WHERE EMAIL = ? ";
         try {
@@ -52,7 +50,7 @@ public class DAOUsuario implements IDAOUsuario {
             PreparedStatement sentenciaSQL2 = conn.prepareStatement(sqlIns);
             sentenciaSQL2.setString(1, nuevoUsuario.getEmail());
             ResultSet rs = sentenciaSQL2.executeQuery();
-            int id=0;
+            int id = 0;
             while (rs.next()) {
                 id = rs.getInt("ID");
             }
@@ -81,19 +79,12 @@ public class DAOUsuario implements IDAOUsuario {
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (Usuario usuario : listaUsuarios) {
-            if (usuario.getId() == id) {
-                usuario.setEmail(email);
-                usuario.setPassword(pwd);
-                usuario.setName(nombre);
-                usuario.setAge(edad);
-            }
-        }
     }
 
     @Override
     public boolean eliminar(int id) {
         String sqlQuery = "DELETE FROM USUARIO WHERE ID= ? ";
+        boolean flag = true;
         try {
             conn = new SQLConnection().openConnection(urldb, user, pwd);
             PreparedStatement sentenciaSQL = conn.prepareStatement(sqlQuery);
@@ -102,19 +93,15 @@ public class DAOUsuario implements IDAOUsuario {
             conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            flag = false;
         }
-        boolean flag = false;
-        for (Usuario usuario : listaUsuarios) {
-            if (id == usuario.getId()) {
-                flag = true;
-                listaUsuarios.remove(usuario);
-            }
-        }
+
         return flag;
     }
 
     @Override
     public Usuario leerUno(int id) {
+        List<Usuario> listaUsuarios = leerTodos();
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getId() == id) {
                 return usuario;
@@ -125,6 +112,7 @@ public class DAOUsuario implements IDAOUsuario {
 
     @Override
     public Usuario leerUno(String email) {
+        List<Usuario> listaUsuarios = leerTodos();
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getEmail().equals(email)) {
                 return usuario;
@@ -135,6 +123,7 @@ public class DAOUsuario implements IDAOUsuario {
 
     @Override
     public List<Usuario> leerTodos(String nombre) {
+        List<Usuario> listaUsuarios = leerTodos();
         List<Usuario> listaNombreUsuarios = new ArrayList<>();
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getName().equals(nombre)) {
@@ -146,7 +135,29 @@ public class DAOUsuario implements IDAOUsuario {
 
     @Override
     public List<Usuario> leerTodos() {
-        return listaUsuarios;
+        List<Usuario> list = new ArrayList<>();
+        String sql = "SELECT * FROM USUARIO";
+        try {
+            conn = new SQLConnection().openConnection(urldb, user, pwd);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            int id, age;
+            String nombre, password, email;
+            while (rs.next()) {
+                id = rs.getInt("ID");
+                age = rs.getInt("AGE");
+                nombre = rs.getString("NOMBRE");
+                password = rs.getString("PASSWORD");
+                email = rs.getString("EMAIL");
+                Usuario us = new Usuario(email, password, nombre, age);
+                us.setId(id);
+                list.add(us);
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 
 }
