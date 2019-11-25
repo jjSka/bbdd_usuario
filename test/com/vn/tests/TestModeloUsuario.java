@@ -15,21 +15,22 @@ import static org.junit.Assert.*;
  * @author PC
  */
 public class TestModeloUsuario {
-    
 
     public void crearParaTest(){
-        DAOUsuario du= new DAOUsuario();
-        du.crear(new Usuario("email@email.com","password","Felix",23));
+       
+        
+        
     }
     
     @Test
     public void crearUsuariosInvalidos() {
-        DAOUsuario dao = new DAOUsuario();
-        dao.crear(new Usuario("aaa", "-", "999", 0));
+        DAOUsuario du= new DAOUsuario();
+        du.crear(new Usuario("alvaro@hotmail.com", "gallEtas99", "Alvaro Gomez", 22));
     }
     @Test
     public void crearUsuariosValidos() {
-        
+//        DAOUsuario du= new DAOUsuario();
+//        assertNotNull(du.crear(new Usuario("email@email.com","password","Felix",23)));
         
     }
     @Test
