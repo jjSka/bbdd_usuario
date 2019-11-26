@@ -24,6 +24,7 @@ import java.util.logging.Logger;
  * @author PC
  */
 public class DAOUsuario implements IDAOUsuario {
+
     private Connection conn;
 
     public DAOUsuario() {
@@ -33,16 +34,17 @@ public class DAOUsuario implements IDAOUsuario {
     public Usuario crear(Usuario nuevoUsuario) {
         ServicioUsuarios su = new ServicioUsuarios();
         boolean flag = true;
-
+        int edad = nuevoUsuario.getEdad();
         String email = nuevoUsuario.getEmail();
         String password = nuevoUsuario.getPassword();
         String name = nuevoUsuario.getName();
         flag = su.validarEmail(email) ? flag : false;
         flag = su.validarNombre(name) ? flag : false;
         flag = su.validarPassWord(password) ? flag : false;
+        flag = su.validarEdad(edad + "") ? flag : false;
 
         if (flag) {
-            if (leerUno(email)!=null) {
+            if (leerUno(email) != null) {
                 return leerUno(nuevoUsuario.getEmail());
             }
             String sqlQuery = "INSERT INTO USUARIO (EMAIL, PASSWORD, NOMBRE, EDAD) VALUES ( ? , ? , ? , ? ) ";
@@ -50,10 +52,10 @@ public class DAOUsuario implements IDAOUsuario {
             try {
                 conn = new SQLConnection().openConnection();
                 PreparedStatement sentenciaSQL = conn.prepareStatement(sqlQuery);
-                sentenciaSQL.setString(1, nuevoUsuario.getEmail());
-                sentenciaSQL.setString(2, nuevoUsuario.getPassword());
-                sentenciaSQL.setString(3, nuevoUsuario.getName());
-                sentenciaSQL.setInt(4, nuevoUsuario.getEdad());
+                sentenciaSQL.setString(1, email);
+                sentenciaSQL.setString(2, password);
+                sentenciaSQL.setString(3, name);
+                sentenciaSQL.setInt(4, edad);
                 sentenciaSQL.executeUpdate();
                 PreparedStatement sentenciaSQL2 = conn.prepareStatement(sqlIns);
                 sentenciaSQL2.setString(1, nuevoUsuario.getEmail());
@@ -69,7 +71,7 @@ public class DAOUsuario implements IDAOUsuario {
             }
             nuevoUsuario.setId(0);
         } else {
-            System.err.println("Error de validacion: Email - "+su.validarEmail(email)+" Nombre: - "+su.validarNombre(name)+" Password: - "+su.validarPassWord(password));
+            System.err.println("Error de validacion: Email - " + su.validarEmail(email) + " Nombre: - " + su.validarNombre(name) + " Password: - " + su.validarPassWord(password));
             return null;
         }
 
@@ -100,7 +102,7 @@ public class DAOUsuario implements IDAOUsuario {
                 Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-           System.err.println("Error de validacion: Email - "+su.validarEmail(email)+" Nombre: - "+su.validarNombre(nombre)+" Password: - "+su.validarPassWord(pwd));
+            System.err.println("Error de validacion: Email - " + su.validarEmail(email) + " Nombre: - " + su.validarNombre(nombre) + " Password: - " + su.validarPassWord(pwd));
         }
 
     }

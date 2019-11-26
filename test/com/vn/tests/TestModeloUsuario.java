@@ -18,26 +18,35 @@ import static org.junit.Assert.*;
  */
 public class TestModeloUsuario {
 
-    public void crearParaTest() {
+    private DAOUsuario su;
 
+    public TestModeloUsuario() {
+        su = new DAOUsuario();
     }
 
     @Test
-    public void crearUsuariosInvalidos() {
-        DAOUsuario du = new DAOUsuario();
-        List<Usuario> ls = new ArrayList<>();
-        du.crear(new Usuario("prueba@gmail.com", "aa", "asa", 0));
-        Usuario u = du.leerUno("prueba@gmail.com");
-
-        System.out.println(u.getName() + " " + u.getEmail() + " " + u.getPassword() + " " + u.getEdad());
+    public void crearUsuariosInvalidos() {     
+        Usuario u1 = su.crear(new Usuario(null, "", "", 1));
+        Usuario u2 = su.crear(new Usuario("", null, "Nom", -99));
+        Usuario u3 = su.crear(new Usuario("b@a.a", null, "", 0));
+        Usuario u4 = su.crear(new Usuario("b@a.a", "1234", "Nom 2", 7));
+        Usuario u5 = su.crear(new Usuario("b@a.a", "1234", "Nom 2", 1));
+        assertNull(u1);
+        assertNull(u2);
+        assertNull(u3);
+        assertNull(u4);
+        assertNull(u5);
+        assertNull(su.leerUno("b@a.a"));
 
     }
 
     @Test
     public void crearUsuariosValidos() {
-        //       DAOUsuario du= new DAOUsuario();
-//        assertNotNull(du.crear(new Usuario("email@email.com","password","Felix",23)));
+        su.crear(new Usuario("a@a.a", "1234", "Nom 1", 20));
+        su.crear(new Usuario("a@a.a2", "1234", "Nom 2", 30));
 
+        assertTrue(su.leerUno("a@a.a").getId() > 0);
+        assertEquals("Nom 2", su.leerUno("a@a.a2").getName());
     }
 
     @Test
