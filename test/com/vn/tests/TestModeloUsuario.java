@@ -18,33 +18,35 @@ import static org.junit.Assert.*;
  */
 public class TestModeloUsuario {
 
-    public void crearParaTest(){
-       
-        
-        
+    public void crearParaTest() {
+
     }
-    
+
     @Test
     public void crearUsuariosInvalidos() {
-        DAOUsuario du= new DAOUsuario();
+        DAOUsuario du = new DAOUsuario();
         List<Usuario> ls = new ArrayList<>();
-        ls=du.leerTodos();
-        for(Usuario u : ls){
-            System.out.println(u.getName()+" "+u.getEmail()+" "+u.getPassword()+" "+u.getEdad());
-        }
+        du.crear(new Usuario("prueba@gmail.com", "aa", "asa", 0));
+        Usuario u = du.leerUno("prueba@gmail.com");
+
+        System.out.println(u.getName() + " " + u.getEmail() + " " + u.getPassword() + " " + u.getEdad());
+
     }
+
     @Test
     public void crearUsuariosValidos() {
- //       DAOUsuario du= new DAOUsuario();
+        //       DAOUsuario du= new DAOUsuario();
 //        assertNotNull(du.crear(new Usuario("email@email.com","password","Felix",23)));
-        
+
     }
+
     @Test
     public void modificarUsuarios() {
-        
-    }    
+
+    }
+
     @Test
     public void eliminarUsuarios() {
-        
-    }     
+
+    }
 }

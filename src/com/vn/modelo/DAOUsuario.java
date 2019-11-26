@@ -100,7 +100,7 @@ public class DAOUsuario implements IDAOUsuario {
                 Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            System.err.println("Error de validacion");
+           System.err.println("Error de validacion: Email - "+su.validarEmail(email)+" Nombre: - "+su.validarNombre(nombre)+" Password: - "+su.validarPassWord(pwd));
         }
 
     }
