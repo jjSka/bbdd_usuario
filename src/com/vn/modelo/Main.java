@@ -5,6 +5,9 @@
  */
 package com.vn.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author PC
@@ -19,6 +22,9 @@ public class Main {
         
         DAOUsuario du= new DAOUsuario();
         du.crear(new Usuario("a@a.com","1234","Jose",23));
+        List<Usuario>lU= new ArrayList<Usuario>();
+        Usuario u1= du.leerUno("a@a.com");
+        System.out.println(u1.getName());
     }
     
 }
