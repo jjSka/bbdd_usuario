@@ -1,0 +1,20 @@
+Wed Nov 27 13:58:51 CET 2019 : Servidor de red Apache Derby: Se ha iniciado 10.14.2.0 - (1828579) y está listo para aceptar las conexiones en el puerto 1527
+----------------------------------------------------------------
+Wed Nov 27 13:58:52 CET 2019:
+ Iniciando instancia a816c00e-016e-acf1-651b-ffff9e8acad8 de Derby, versión The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): 
+en el directorio de base de datos C:\Users\PC\Desktop\06_bbdd_usuario\db_usuarios con el cargador de clases sun.misc.Launcher$AppClassLoader@1d44bcfa
+Cargado desde file:/C:/Users/PC/Desktop/CURSO_JAVA_5/escuela_java_ourense.git/05_AppWeb_Servlets/lib/db-derby-10.14.2.0-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_231-b11
+user.dir=C:\Users\PC\Desktop\CURSO_JAVA_5\escuela_java_ourense.git\05_AppWeb_Servlets\lib\db-derby-10.14.2.0-bin
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\PC\Desktop\06_bbdd_usuario
+Cargador de clases de base de datos iniciado - derby.database.classpath=''
+----------------------------------------------------------------
+Wed Nov 27 13:59:56 CET 2019: cerrando motor de Derby
+----------------------------------------------------------------
+Wed Nov 27 13:59:56 CET 2019:
+Cerrando la instancia a816c00e-016e-acf1-651b-ffff9e8acad8 en el directorio de base de datos C:\Users\PC\Desktop\06_bbdd_usuario\db_usuarios con cargador de clases sun.misc.Launcher$AppClassLoader@1d44bcfa
+----------------------------------------------------------------
